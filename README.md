@@ -289,4 +289,34 @@ $ use mydb;
 
 ![image](https://user-images.githubusercontent.com/118447769/220198160-1df13ee3-a215-48d5-90a7-bae6a71ea5f0.png)
 
+- CHAR(M), VARCHAR(M) 차이점
+  - M : 저장할 수 있는 문자열의 최대길이 (CHAR는 0~255, VARCHAR는 0~65535)
+  - CHAR(M)
+    - 고정 문자일 때 사용 ex) 전화번호
+    - 설정한 크기보다 작은 길이의 문자열일 때, 공백으로 채워 길이를 M만큼 채움
+  - **VARCHAR(M)**
+    - 가변 문자일 때 사용 ex) 게시판 제목
+    - 실제 입력된 문자열의 길이만큼만 저장하고 사용
+  - char은 검색이나 성능이 뛰어나 정형화 일때 사용되며, varchar는 가변적일때 사용된다.
+
+- **DECIMAL(M,D)** : 고정 소수점 타입(fixed-point types)
+  - M은 소수 부분을 포함한 실수의 총 자릿수를 나타내며, 최댓값은 65이다.
+  - D는 소수 부분의 자릿수를 나타내며, D가 0이면 소수 부분을 가지지 않는다.
+  - 
+- **DATETIME** : DATETIME는 날짜와 함께 시간까지 저장할 수 있는 타입
+  - 기본 형식은 'YYYY-MM-DD HH:MM:SS'이며, 이때 저장할 수 있는 범위는 '1000-01-01 00:00:00'부터 '9999-12-31 23:59:59'까지입니다.
+
+- 타입 참고
+  - 숫자 타입 : http://www.tcpschool.com/mysql/mysql_datatype_numeric
+  - 문자열 타입 : http://www.tcpschool.com/mysql/mysql_datatype_string
+  - 날짜와 시간 타입 : http://www.tcpschool.com/mysql/mysql_datatype_dateTime
+
+### 데이터베이스 연결
+참고 : https://hihellosuah.tistory.com/91
+![image](https://user-images.githubusercontent.com/118447769/220204158-b6c31695-b12d-4463-9871-35f94f0fa214.png)
+![image](https://user-images.githubusercontent.com/118447769/220204445-63d16169-fbdb-40e3-b108-6a87b81935ce.png)
+
 ### 데이터 생성
+- nickname : '영어 단어 100개 + 랜덤 문자열 3자리 + 랜덤 숫자 4자리' 로 생성
+- money : 1 ~ 100,000 사이의 값을 적당하게 분포하게 생성
+- last_visit : 최근 한달 사이 랜덤 시각으로 생성
