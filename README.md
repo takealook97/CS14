@@ -5,15 +5,15 @@
 
 참고 : https://poiemaweb.com/docker-mysql
 
-## 1. Docker 설치
+### 1. Docker 설치
 
 - https://www.docker.com/products/docker-desktop/ 접속 후 자신의 OS에 맞는 Docker 설치
 - 도커 버전 출력하기
   ```bash
-  docker -v
+  $ docker -v
   ```
 
-## 2. MySQL Docker 이미지 다운
+### 2. MySQL Docker 이미지 다운
 
 - 다음 명령어로 MySQL Docker 이미지를 다운로드한다. 태그에 버전을 지정하지 않으면 최신 버전을 다운로드 한다.
   ```bash
@@ -72,7 +72,7 @@
     ```
   - 참고 : https://velog.io/@frozenxnow/Mac%EC%97%90%EC%84%9C-docker%EB%A1%9C-%EC%9D%B4%EC%9A%A9%ED%95%98%EB%8D%98-MySQL-%EC%82%AD%EC%A0%9C%ED%95%98%EA%B8%B0
 
-## 3. MySQL Docker 컨테이너 생성 및 실행
+### 3. MySQL Docker 컨테이너 생성 및 실행
 
 ```bash
 $ docker run --name <mysql-container> -e MYSQL_ROOT_PASSWORD=<password> -d -p 3306:3306 mysql:latest
@@ -84,13 +84,13 @@ $ docker run --platform linux/amd64 --name <mysql-container> -e MYSQL_ROOT_PASSW
 ```bash
 $ docker run --platform linux/amd64 --name <mysql-container> -e MYSQL_ROOT_PASSWORD=<password> -d -p 3306:3306 mysql:5.7 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 ```
-## 4. MySQL Docker 컨테이너 리스트 출력
+### 4. MySQL Docker 컨테이너 리스트 출력
 
 ```bash
 $ docker ps -a
 ```
 
-## 5. MySQL Docker 컨테이너 시작/중지/재시작
+### 5. MySQL Docker 컨테이너 시작/중지/재시작
 
 ```bash
 # MySQL Docker 컨테이너 중지
@@ -103,18 +103,18 @@ $ docker start mysql-container
 $ docker restart mysql-container
 ```
 
-## 6. MySQL Docker 컨테이너 접속
+### 6. MySQL Docker 컨테이너 접속
 
 ```bash
 $ docker exec -it mysql-container bash
 ```
 
-## 7. MySQL Docker 연결 해제
+### 7. MySQL Docker 연결 해제
 ```bash
 $ exit
 ```
 
-## 8. 도커(mysql) 컨테이너 실행(bash 접속) 후 MySQL 서버 접속
+### 8. 도커(mysql) 컨테이너 실행(bash 접속) 후 MySQL 서버 접속
 
 ```bash
 $ mysql -u root -p
@@ -130,7 +130,7 @@ $ mysql -u root -p
 - 없다면 vim 설치 (apt-get이 안된다면 'yum' 사용)
 ```bash
 $ apt-get update
-$ apt-get install vim
+$ apt-get install vim nano
 ```
 - 설치 후 파일에 접근
 ```bash
@@ -154,11 +154,12 @@ character-set-server = utf8
 - 이후 서버에서 'status' 확인
 ![image](https://user-images.githubusercontent.com/118447769/220188108-457859d1-7de3-4026-9e6d-4473cae10c39.png)
 
-
+---
 
 # MySQL 명령어
 참고 : https://velog.io/@kimtaeeeny/mysql-%EB%AA%85%EB%A0%B9%EC%96%B4-%EB%AA%A8%EC%9D%8C
-## 1. 서버 구동, 종료
+
+### 1. 서버 구동, 종료
 ```bash
 # 구동
 $ mysql.server start
@@ -166,7 +167,7 @@ $ mysql.server start
 $ mysql.server stop
 ```
 
-## 2. mysql 접속, 나가기
+### 2. mysql 접속, 나가기
 ```bash
 # 접속 
 $ mysql -uroot -p
@@ -174,7 +175,7 @@ $ mysql -uroot -p
 $ EXIT
 ```
 
-## 3. 데이터베이스 열람, 생성, 삭제
+### 3. 데이터베이스 열람, 생성, 삭제
 ```bash
 # 열람
 $ SHOW DATABASES;
@@ -183,18 +184,38 @@ $ CREATE DATABASE 데이터베이스이름;
 # 삭제
 $ DROP DATABASE 데이터베이스이름;
 ```
+- 데이터베이스 및 일반 사용자 생성
+```bash
+$ CREATE DATABASE mydb;
+# 아이디 및 패스워드 설정
+$ CREATE USER 'myuserid'@'%' IDENTIFIED BY 'mypassword';
+$ GRANT ALL ON mydb.* TO 'myuserid'@'%';
+$ FLUSH PRIVILEGES;
 
-## 4. 상태확인
+# mydb: 데이터베이스 이름
+# myuserid: 사용자 id
+# mypassword: 사용자 패스워드
+```
+
+### 4. 상태확인
 ```bash
 $ STATUS;
 ```
 
-## 5. 비밀번호 변경 (mysql 접속 가능 시)
+### 5. 시간설정
+```bash
+$ mysql> set global time_zone='Asia/Seoul';
+$ mysql> set time_zone='Asia/Seoul';
+
+$ mysql> select @@global.time_zone, @@session.time_zone;
+```
+
+### 6. 비밀번호 변경 (mysql 접속 가능 시)
 ```bash
 $ ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY '1234';
 ```
 
-## 6. 비밀번호 변경 (분실시)
+### 7. 비밀번호 변경 (분실시)
 ```bash
 $ mysql.server stop
 $ mysql.server start --skip-grant-tables
@@ -206,4 +227,66 @@ $ EXIT
 $ mysql -u root
 $ ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY '1234';
 ```
+- 루트 사용자로 로그인 후 일반 사용자 패스워드는 쉽게 변경 가능
+```bash
+$ SET PASSWORD FOR 'honux'@'%'='new_password';
+$ FLUSH PRIVILEGES;
+```
 
+---
+
+# 외부접속 허용하기
+현재 사용되는 서버의 MySQL에 접속하기 위해서는 모든 IP에서 접속을 할 수 있도록 설정해야 한다.
+
+### 1. 설정 확인
+```bash
+mysql> SELECT Host FROM mysql.user WHERE user='root';
+```
+- query문을 통해 HOST설정을 확인한다. %는 모든 IP의 접속을 설정한다는 것을 의미한다.
+- query문 확인 시 %가 설정 되어 있을 경우 다음 순서는 넘어가도 된다.
+
+### 2. 모든 IP 접속 허용
+```bash
+mysql> INSERT INTO mysql.user (host,user,password) VALUES ('%','root',password('패스워드'));
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
+mysql> FLUSH PRIVILEGES;
+```
+- 위에 query를 차례로 실행한다. 이 후 1번의 query를 실행하여 Host에 %가 추가 되었는지 확인한다.
+
+### 3. my.cnf 수정
+
+- vi편집기를 이용하여 my.cnf파일을 엽니다.
+  ```bash
+  [root@root guru]vi /etc/my.cnf
+  ```
+- bind-address = 127.0.0.1 앞에 #을 붙여서 주석 처리 (#은 주석을 의미)
+
+- mysql 재시작
+  ```bash
+  [root@root guru]service mysqld restart
+  ```
+
+### 4. 접속 확인
+
+- 아래 명령어를 통하여 접속이 정상적으로 되는지 확인
+```bash
+[root@root guru]mysql -u root -h 129.129.12.12 -p
+```
+
+---
+
+# Mission. 데이터 생성
+### 데이터 베이스 확인
+![image](https://user-images.githubusercontent.com/118447769/220197902-9707ff47-c81a-40f7-b93d-47d4a8b0d87c.png)
+
+### 데이터베이스 선택
+```bash
+$ use mydb;
+```
+
+### user_log 테이블 생성 및 확인
+![image](https://user-images.githubusercontent.com/118447769/220197742-31eb4538-d2f9-4a3f-ba13-9bb31d2b2767.png)  
+
+![image](https://user-images.githubusercontent.com/118447769/220198160-1df13ee3-a215-48d5-90a7-bae6a71ea5f0.png)
+
+### 데이터 생성
