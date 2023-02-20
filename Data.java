@@ -3,12 +3,12 @@ import java.util.Random;
 
 public class Data {
     public static void main(String[] args) throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/mydb";
-        String userName = "takealook";
-        String password = "0205";
-        Connection con = DriverManager.getConnection(url, userName, password);
-        Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery("select * from users");
+//        String url = "jdbc:mysql://localhost:3306/mydb";
+//        String userName = "takealook";
+//        String password = "0205";
+//        Connection con = DriverManager.getConnection(url, userName, password);
+//        Statement st = con.createStatement();
+//        ResultSet rs = st.executeQuery("select * from users");
 
 
         String[] words = new String[]{"force", "communicate", "develop", "earth", "protect", "signal", "animal", "rainstorm", "stone", "rabbits",
@@ -21,6 +21,7 @@ public class Data {
                 "team", "silk", "ask", "caring", "spiders", "rely", "pancake", "expansion", "dangerous", "taste", "shop", "room", "historical"};
         int count = 0;
         Random rd = new Random();
+
         while (count < 100) {
             StringBuilder randomString = new StringBuilder();
             for (int i = 0; i < 3; i++) {
@@ -33,16 +34,28 @@ public class Data {
 
             String nickname = words[rd.nextInt(100)] + randomString + randomNumber;
             int money = rd.nextInt(100000) + 1;
-            int[] last_visit;
 
-            System.out.println(randomNumber);
+            String[] dateTime = new String[6];//YYYY-MM-DD HH:MM:SS
+            dateTime[0] = Integer.toString(2023);
+            dateTime[1] = String.format("%02d", rd.nextInt(2) + 1);
+            if (dateTime[1].equals("01")) {//1월일 경우
+                dateTime[2] = Integer.toString(rd.nextInt(11) + 21);//21~31일
+            } else if (dateTime[1].equals("02")) {//2월일 경우
+                dateTime[2] = String.format("%02d", rd.nextInt(21) + 1);//1~21일
+            }
+            dateTime[3] = String.format("%02d", rd.nextInt(24));
+            dateTime[4] = String.format("%02d", rd.nextInt(60));
+            dateTime[5] = String.format("%02d", rd.nextInt(60));
+            String last_visit = dateTime[0] + "-" + dateTime[1] + "-" + dateTime[2] + " " + dateTime[3] + ":" + dateTime[4] + ":" + dateTime[5];
 
-
+//            System.out.println(nickname);
+//            System.out.println(money);
+//            System.out.println(last_visit + "\n");
             count++;
         }
 
-        rs.close();
-        st.close();
-        con.close();
+//        rs.close();
+//        st.close();
+//        con.close();
     }
 }
