@@ -360,3 +360,15 @@ pst.setString(2, String.valueOf(money));
 pst.setString(3, lastVisit);
 pst.execute();
 ```
+
+
+### 테이블 내 데이터 삭제
+
+```bash
+$ truncate <tableName>;
+```
+
+### 테이블 내 데이터 조회
+```bash
+$ select*from <tableName>;
+```
