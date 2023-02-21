@@ -316,7 +316,47 @@ $ use mydb;
 ![image](https://user-images.githubusercontent.com/118447769/220204158-b6c31695-b12d-4463-9871-35f94f0fa214.png)
 ![image](https://user-images.githubusercontent.com/118447769/220204445-63d16169-fbdb-40e3-b108-6a87b81935ce.png)
 
+---
+
 ### 데이터 생성
 - nickname : '영어 단어 100개 + 랜덤 문자열 3자리 + 랜덤 숫자 4자리' 로 생성
+  ```java
+  StringBuilder randomString = new StringBuilder();
+  for (int i = 0; i < 3; i++) {
+      randomString.append((char) (rd.nextInt(26) + 97));//랜덤 문자열 3자리
+  }
+  StringBuilder randomNumber = new StringBuilder();
+  for (int i = 0; i < 4; i++) {
+      randomNumber.append(rd.nextInt(10));//랜덤 숫자 4자리
+  }
+  nickname = words[rd.nextInt(100)] + randomString + randomNumber;
+  ```
 - money : 1 ~ 100,000 사이의 값을 적당하게 분포하게 생성
+  ```java
+  money = rd.nextInt(100000) + 1;
+  ```
 - last_visit : 최근 한달 사이 랜덤 시각으로 생성
+  ```java
+  String[] dateTime = new String[6];//YYYY-MM-DD HH:MM:SS
+  dateTime[0] = Integer.toString(2023);
+  dateTime[1] = String.format("%02d", rd.nextInt(2) + 1);
+  if (dateTime[1].equals("01")) {//1월일 경우
+  dateTime[2] = Integer.toString(rd.nextInt(11) + 21);//21~31일
+  } else if (dateTime[1].equals("02")) {//2월일 경우
+  dateTime[2] = String.format("%02d", rd.nextInt(21) + 1);//1~21일
+  }
+  dateTime[3] = String.format("%02d", rd.nextInt(24));
+  dateTime[4] = String.format("%02d", rd.nextInt(60));
+  dateTime[5] = String.format("%02d", rd.nextInt(60));
+  lastVisit = dateTime[0] + "-" + dateTime[1] + "-" + dateTime[2] + " " + dateTime[3] + ":" + dateTime[4] + ":" + dateTime[5];
+  ```
+
+### DB에 저장
+```java
+String SQL = "INSERT INTO user_log VALUES (?, ?, ?)";
+pst = con.prepareStatement(SQL);
+pst.setString(1, nickname);
+pst.setString(2, String.valueOf(money));
+pst.setString(3, lastVisit);
+pst.execute();
+```
