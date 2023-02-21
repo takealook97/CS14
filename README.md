@@ -151,7 +151,7 @@ character-set-server = utf8
 ```
 - 추가적으로 Linux Vi editor (vi 편집기) 명령어는 아래의 링크 참고
   - https://spidyweb.tistory.com/125
-- 이후 서버에서 'status' 확인
+- 이후 서버에서 'status' 확인  
 ![image](https://user-images.githubusercontent.com/118447769/220188108-457859d1-7de3-4026-9e6d-4473cae10c39.png)
 
 ---
@@ -284,7 +284,7 @@ mysql> FLUSH PRIVILEGES;
 $ use mydb;
 ```
 
-### user_log 테이블 생성 및 확인
+## user_log 테이블 생성 및 확인
 ![image](https://user-images.githubusercontent.com/118447769/220197742-31eb4538-d2f9-4a3f-ba13-9bb31d2b2767.png)  
 
 ![image](https://user-images.githubusercontent.com/118447769/220198160-1df13ee3-a215-48d5-90a7-bae6a71ea5f0.png)
@@ -312,9 +312,11 @@ $ use mydb;
   - 날짜와 시간 타입 : http://www.tcpschool.com/mysql/mysql_datatype_dateTime
 
 ### 데이터베이스 연결
-참고 : https://hihellosuah.tistory.com/91
-![image](https://user-images.githubusercontent.com/118447769/220204158-b6c31695-b12d-4463-9871-35f94f0fa214.png)
-![image](https://user-images.githubusercontent.com/118447769/220204445-63d16169-fbdb-40e3-b108-6a87b81935ce.png)
+참고 : https://hihellosuah.tistory.com/91  
+
+![image](https://user-images.githubusercontent.com/118447769/220204158-b6c31695-b12d-4463-9871-35f94f0fa214.png)  
+
+![image](https://user-images.githubusercontent.com/118447769/220204445-63d16169-fbdb-40e3-b108-6a87b81935ce.png)  
 
 ---
 
@@ -351,7 +353,7 @@ $ use mydb;
   lastVisit = dateTime[0] + "-" + dateTime[1] + "-" + dateTime[2] + " " + dateTime[3] + ":" + dateTime[4] + ":" + dateTime[5];
   ```
 
-### DB에 저장
+## DB에 저장
 10000개씩 끊어서 저장 -> 10000개 당 약 5~6초 소요 -> 1000000개 : 500~600초 예상
 ```java
 pst.setString(1, nickname);
@@ -379,3 +381,11 @@ $ select*from <tableName>;
 
 ### addBatch와 executeBatch를 이용한 대용량 데이터 처리
 참고 : https://fruitdev.tistory.com/111
+
+---
+
+## 결과
+
+![image](https://user-images.githubusercontent.com/118447769/220266028-7024239f-b27b-4a34-8ff5-201028164c9f.png)  
+
+![image](https://user-images.githubusercontent.com/118447769/220267114-594ae638-b74b-481b-9dd8-e1846c37331f.png)

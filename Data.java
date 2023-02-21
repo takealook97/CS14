@@ -58,7 +58,6 @@ public class Data {
                 dateTime[5] = String.format("%02d", rd.nextInt(60));
                 lastVisit = dateTime[0] + "-" + dateTime[1] + "-" + dateTime[2] + " " + dateTime[3] + ":" + dateTime[4] + ":" + dateTime[5];
 
-
 //            pst.setString(1, nickname), (2, String.valueOf(money)), (3, lastVisit);
                 pst.setString(1, nickname);
                 pst.setString(2, String.valueOf(money));
