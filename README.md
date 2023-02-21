@@ -372,3 +372,6 @@ $ truncate <tableName>;
 ```bash
 $ select*from <tableName>;
 ```
+
+### addBatch와 executeBatch를 이용한 대용량 데이터 처리
+참고 : https://fruitdev.tistory.com/111
