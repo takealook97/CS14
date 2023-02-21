@@ -352,15 +352,19 @@ $ use mydb;
   ```
 
 ### DB에 저장
+10000개씩 끊어서 저장 -> 10000개 당 약 5~6초 소요 -> 1000000개 : 500~600초 예상
 ```java
-String SQL = "INSERT INTO user_log VALUES (?, ?, ?)";
-pst = con.prepareStatement(SQL);
 pst.setString(1, nickname);
 pst.setString(2, String.valueOf(money));
 pst.setString(3, lastVisit);
-pst.execute();
+pst.addBatch();
+pst.clearParameters();
+if (count % 10000 == 0) {
+    pst.executeBatch();
+    pst.clearBatch();
+    con.commit();
+}
 ```
-
 
 ### 테이블 내 데이터 삭제
 
